@@ -16,7 +16,7 @@ We highly recommend using the [UV package manager](https://docs.astral.sh/uv/).
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/robust_xgboost_ensembles.git
+git clone https://github.com/SafeIntelligence/robust_xgboost_ensembles.git
 cd robust_xgboost_ensembles
 
 # Create virtual environment
