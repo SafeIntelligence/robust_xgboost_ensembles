@@ -104,5 +104,3 @@ If you use this robust XGBoost implementation in your research, please cite our 
   publisher={PMLR},
   url={https://proceedings.mlr.press/v286/sharma25a.html}
 }
-```
-```
