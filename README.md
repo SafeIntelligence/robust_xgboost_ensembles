@@ -20,7 +20,7 @@ git clone https://github.com/SafeIntelligence/robust_xgboost_ensembles.git
 cd robust_xgboost_ensembles
 
 # Create virtual environment
-uv venv robxgb python=3.11
+uv venv robxgb --python=3.11
 
 # Install in editable mode
 uv pip install -e ".[dev]"
