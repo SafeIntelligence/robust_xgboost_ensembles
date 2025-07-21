@@ -98,7 +98,7 @@ If you use this robust XGBoost implementation in your research, please cite our 
 ```bibtex
 @inproceedings{sharma2025robxgb,
   title={Learning Robust XGBoost Ensembles for Regression Tasks},
-  author={Atri Sharma, Panagiotis Kouvaros, Alessio Lomuscio},
+  author={A.~V.~Sharma and P.~Kouvaros and A.~Lomuscio},
   booktitle={Proceedings of the 41st Conference on Uncertainty in Artificial Intelligence (UAI)},
   year={2025},
   publisher={PMLR},
