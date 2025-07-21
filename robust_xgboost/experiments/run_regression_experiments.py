@@ -508,8 +508,8 @@ def run_experiments_across_train_settings(
         DataFrame: Updated aggregated results dataframe.
     """
     # Set smaller sample sizes for efficiency
-    max_train_samples = 50
-    max_test_samples = 5
+    max_train_samples = 5000
+    max_test_samples = 500
 
     # Load hyperparameters for the dataset
     hyperparams_fp = Path(__file__).resolve().parent / "hyperparams.json"
