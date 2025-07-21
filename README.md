@@ -22,6 +22,9 @@ cd robust_xgboost_ensembles
 # Create virtual environment
 uv venv robxgb --python=3.11
 
+# Activate environment
+source robxgb/bin/activate
+
 # Install in editable mode
 uv pip install -e ".[dev]"
 ```
@@ -75,7 +78,17 @@ robust_model.save_model("robust_xgboost_model.json")
 
 ## Reproducing Paper Results
 
-To reproduce the experimental results reported in our UAI 2025 paper, you can run the provided experiment scripts on an OpenML benchmark suite curated by [Grinsztajn et. al. 2022](https://papers.neurips.cc/paper_files/paper/2022/file/0378c7692da36807bdec87ab043cdadc-Paper-Datasets_and_Benchmarks.pdf) for regression tasks:
+To reproduce the experimental results reported in our UAI 2025 paper, you can run the provided experiment scripts on an OpenML benchmark suite curated by [Grinsztajn et. al. 2022](https://papers.neurips.cc/paper_files/paper/2022/file/0378c7692da36807bdec87ab043cdadc-Paper-Datasets_and_Benchmarks.pdf) for regression tasks. The MILP solver used to obtain the robustness metrics relies on the 
+[Gurobi](https://www.gurobi.com) package, that requires a suitable academic or industrial license.
+
+Please note that if you would like to run experiments for the `R-GBDT` method, it
+must be built from the instructions listed in the library from the paper ([Robust Decision Trees Against Adversarial Examples](https://github.com/chenhongge/RobustTrees)). The resulting executable (called `xgboost`) must be placed at the following path: 
+
+```bash
+robust_xgboost_ensembles/robust_xgboost/baseline_interfaces/xgboost
+```
+
+The following scripts can be used to run the experiments described in the paper: 
 
 ```bash
 # Run experiments with default perturbation radius (ε = 0.05)
