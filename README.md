@@ -102,7 +102,7 @@ python robust_xgboost/experiments/run_regression_experiments.py --eps 0.1
 
 ## License
 
-This project is licensed under the GPL-v3 License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the AGPL-3 License - see the [LICENSE](LICENSE) file for details.
 
 ## Citation
 
