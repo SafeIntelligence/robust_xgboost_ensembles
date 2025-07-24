@@ -42,7 +42,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 from robust_xgboost.models.ensembles.xgboost_regressor import XGBoostRegressor
 
-# Load a real dataset (Boston Housing from OpenML)
+# Load a real dataset (pol from OpenML)
 data = fetch_openml(name="pol", version=1, as_frame=True)
 X, y = data.data.values, data.target.values
 
