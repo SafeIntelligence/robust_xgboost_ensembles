@@ -765,7 +765,7 @@ class XGBoostTree(DecisionTree):
         """
         
         super().fit(data, annotations, weights, previous_predictions)
-        # self.prune()
+        self.prune()
         
         return 
     
