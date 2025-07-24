@@ -397,10 +397,13 @@ def fit_one_node_optimized(
             
             next_index = sorted_indices[i+1]
             
-            is_unique = True 
-            
             if train_X_split[index, feature_index] == train_X_split[next_index, feature_index]:
-                is_unique = False
+                
+                first_derivative_at_point = first_derivatives_at_node[index]
+                second_derivative_at_point = second_derivatives_at_node[index]
+                sum_of_first_derivative_left += first_derivative_at_point
+                sum_of_second_derivative_left += second_derivative_at_point
+                continue
             
             if radius != 0:
                 
@@ -453,9 +456,6 @@ def fit_one_node_optimized(
                     min_hi_amb,
                     max_hi_amb,
                 )
-                
-                if not is_unique:
-                    continue
                 
                 optimal_p, optimal_q, optimal_value = compute_robust_loss(
                     A = sum_of_unambiguous_first_derivative_left,
@@ -541,9 +541,6 @@ def fit_one_node_optimized(
                 
                 sum_of_first_derivative_right = sum_of_first_derivative - sum_of_first_derivative_left
                 sum_of_second_derivative_right = sum_of_second_derivative - sum_of_second_derivative_left
-                
-                if not is_unique:
-                    continue
                 
                 estimated_loss_normal_left = calculate_estimated_loss_numba(
                         sum_of_first_derivative=sum_of_first_derivative_left,
@@ -768,7 +765,7 @@ class XGBoostTree(DecisionTree):
         """
         
         super().fit(data, annotations, weights, previous_predictions)
-        self.prune()
+        # self.prune()
         
         return 
     
@@ -819,6 +816,11 @@ class XGBoostTree(DecisionTree):
             
         node.node_loss_reduction = best_loss_reduction
         
+        # Calculate pre-split loss for debugging
+        sum_of_first_derivative = np.sum(first_derivatives_at_node)
+        sum_of_second_derivative = np.sum(second_derivatives_at_node)
+        pre_split_loss_estimate = -(sum_of_first_derivative ** 2) / (sum_of_second_derivative + self.lamda + TOL)
+        
         left_mask = train_X_split[:,best_feature_index] < best_threshold 
         right_mask = train_X_split[:,best_feature_index] >= best_threshold
         
@@ -843,17 +845,6 @@ class XGBoostTree(DecisionTree):
         fitted data.
         """
         
-        tree = XGBoostTree(loss_func=self._loss_func,
-                                      pert_radius=self._pert_radius,
-                                      max_depth=self._max_depth,
-                                      min_samples_leaf=self._min_samples_leaf,
-                                      lamda=self.lamda,
-                                      gamma=self.gamma,
-                                      learning_rate=self.learning_rate,
-                                      rob_alpha=self.rob_alpha
-                                      )
-        
-        return tree
         tree = XGBoostTree(loss_func=self._loss_func,
                                       pert_radius=self._pert_radius,
                                       max_depth=self._max_depth,

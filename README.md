@@ -43,7 +43,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 from robust_xgboost.models.ensembles.xgboost_regressor import XGBoostRegressor
 
 # Load a real dataset (Boston Housing from OpenML)
-data = fetch_openml(name="boston", version=1, as_frame=True)
+data = fetch_openml(name="pol", version=1, as_frame=True)
 X, y = data.data.values, data.target.values
 
 # Normalize features
@@ -56,10 +56,11 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # Train our robust XGBoost model
 robust_model = XGBoostRegressor(
-    n_base_models=50,           # Number of trees
-    max_depth=6,                # Maximum tree depth
-    learning_rate=0.1,          # Learning rate
+    n_base_models=100,           # Number of trees
+    max_depth=10,                # Maximum tree depth
+    learning_rate=0.02,          # Learning rate
     pert_radius=0.05,           # Perturbation radius for robustness
+    lamda=3.0                   # Regularization parameter
 )
 
 robust_model.fit(X_train, y_train)
